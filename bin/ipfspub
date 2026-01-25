@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+dir="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)/.."
+cd "$dir"
+echo -e "$(date -u "+%Y%m%d-%H%M%S")-$(cat $dir/data/id.txt)-$(hostname) $1" | ipfs pubsub pub tibidoh

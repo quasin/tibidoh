@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+
+dir="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)/.."
+cd "$dir"
+listed=$(awk '{print $3}' data/share/list.csv)
+for folderpath in data/share/*/; do
+  folderrel=$(realpath --relative-to="data/share" "$folderpath")
+  if ! echo "$listed" | grep -Fxq "$folderrel"; then
+    hash_line=$(ipfs add -r --nocopy "$folderpath")
+    echo "$hash_line" >> data/share/list.csv
+  fi
+done
