@@ -1,6 +1,6 @@
 # Tibidoh
 
-Dibidoh - Local Mirror Of Internet (TiB Data Over Home).
+Tibidoh - Local Mirror Of Internet (TiB Data Over Home).
 
 ### Requirements
 
