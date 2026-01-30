@@ -10,7 +10,7 @@ x86_64/aarch64/riscv64; Debian 13(with tun/tap kernel module); 1 Core; 1GB RAM; 
 
 1. Run `git clone --recursive https://github.com/quasin/tibidoh.git tibidoh && cd tibidoh && bash install.sh`
 2. System will reboot.
-3. Change password to NextCloud (default user: admin password: tibidoh).
+3. Password to NextCloud admin is in ~/.secrets
   
   
 © 2026 Quasin • License MIT

@@ -12,9 +12,13 @@ fi
 
 sudo DEBIAN_FRONTEND=noninteractive apt update
 sudo DEBIAN_FRONTEND=noninteractive apt install -y docker.io build-essential python3-dev python3-pip python3-venv tmux cron ufw git \
-    net-tools fuse3 unzip wget
+    net-tools fuse3 unzip wget openssl curl jq
 sudo usermod -aG docker $USER
 sudo systemctl restart docker
+
+echo "NC_PASS='$(openssl rand -base64 12)'" > ~/.secrets
+chmod 600 ~/.secrets
+source ~/.secrets
 
 python3 -m venv .venv
 source .venv/bin/activate
@@ -228,7 +232,7 @@ sudo -E -u www-data php occ maintenance:install \
   --database-pass "TIBIDOH" \
   --database-host "localhost" \
   --admin-user "admin" \
-  --admin-pass "tibidoh"
+  --admin-pass $NC_PASS
 TUN0_IP6="$(ip -6 -o addr show dev tun0 scope global | awk 'NR==1{split($4,a,"/"); print a[1]}')"
 sudo -E -u www-data php occ config:system:set trusted_domains 1 --value="$TUN0_IP6"
 sudo -E -u www-data php occ config:system:set trusted_domains 2 --value="[$TUN0_IP6]"

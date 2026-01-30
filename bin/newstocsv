@@ -1,0 +1,52 @@
+#!/bin/bash
+
+dir="$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)/.."
+cd "$dir"
+
+source ~/.secrets
+
+NC_URL="http://[200:aaa5:77a6:3a76:ee3c:b5cd:d536:b68e]"
+USER="admin"
+PASS="$NC_PASS"
+OUT_DIR=$dir/data/share/feeds
+
+FEEDS_API="${NC_URL}/index.php/apps/news/api/v1-2/feeds"
+ITEMS_API="${NC_URL}/index.php/apps/news/api/v1-2/items?type=3&getRead=true&batchSize=-1"
+
+mkdir -p "$OUT_DIR"
+rm -f "$OUT_DIR"/*.csv
+
+FEEDS_JSON=$(curl -s -k -u "${USER}:${PASS}" -H "OCS-APIRequest: true" "${FEEDS_API}")
+
+
+curl -s -k -u "${USER}:${PASS}" -H "OCS-APIRequest: true" "${ITEMS_API}" | \
+jq -r --argjson feeds_data "$FEEDS_JSON" '
+  ($feeds_data.feeds | map({(.id|tostring): .title}) | add) as $feed_map |
+  
+  .items | sort_by(.pubDate) | reverse |
+  
+  .[] | 
+  ($feed_map[.feedId|tostring] // "Unknown Feed") as $fname |
+  
+  ([$fname, (.pubDate | todate), .title, .url] | @csv) as $csv_row |
+  
+  ($fname | gsub("[/\\\\:*?\"<>|]"; "_") + ".csv") as $filename |
+  
+  $filename + "\t" + $csv_row
+' | \
+awk -F'\t' -v out_dir="$OUT_DIR" '
+  BEGIN { 
+    header = "\"Feed Name\",\"Date\",\"Title\",\"URL\"" 
+  }
+  {
+    file = out_dir "/" $1
+    
+    if (!seen[file]++) {
+      print header > file
+    }
+    
+    print $2 >> file
+  }
+'
+
+ls -lh "$OUT_DIR" | head -n 5
