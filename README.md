@@ -2,9 +2,9 @@
 
 Tibidoh - Local Mirror Of Internet (TiB Data Over Home).
 
-### Requirements
+### Minimal requirements
 
-x86_64/aarch64/riscv64; Debian 13(with tun kernel module); 2 Core; 4GB RAM; 40GB SSD; 4mbps WAN; Open Ports TCP+UDP: 4002  
+x86_64/aarch64/riscv64; Debian 13(with tun/tap kernel module); 1 Core; 1GB RAM; 10GB SSD; 4mbps WAN; Open Ports TCP+UDP: 4002  
 
 ### Installation
 
