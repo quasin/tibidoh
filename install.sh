@@ -242,6 +242,7 @@ sudo -E -u www-data php occ app:install news
 sudo -E -u www-data mkdir /var/www/nextcloud/data/admin/files/tibidoh
 sudo mount --bind $dir/data/share /var/www/nextcloud/data/admin/files/tibidoh
 sudo -E -u www-data php occ files:scan --path="/admin/files/tibidoh"
+sudo -E -u www-data php occ config:app:set news autoPurgeCount --value=-1
 echo "$dir/data/share /var/www/nextcloud/data/admin/files/tibidoh none bind 0 0" | sudo tee -a /etc/fstab
 cd $dir
 ( sudo crontab -u www-data -l 2>/dev/null; echo '*/5 * * * * /usr/bin/php -f /var/www/nextcloud/cron.php' ) | sudo crontab -u www-data -
