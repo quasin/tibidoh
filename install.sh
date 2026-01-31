@@ -148,6 +148,7 @@ sudo systemctl restart ipfssub
 sleep 9
 
 echo -e "$(sudo crontab -l)\n@reboot sleep 9; systemctl restart yggdrasil; echo \"\$(date -u) System is rebooted\" >> $PWD/data/log.txt\n* * * * * su $USER -c \"bash $PWD/bin/cron.sh\"" | sudo crontab -
+echo -e "$(sudo crontab -l)\n0 0 * * * sudo -u www-data PGPASSWORD=TIBIDOH /usr/bin/psql -h localhost -U tibidoh -d nextcloud -c \"DELETE FROM oc_news_items WHERE to_timestamp(pub_date) < NOW() - interval '2 days';\"" | sudo crontab -
 
 sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt install -y ca-certificates curl gnupg
 sudo rm /etc/apt/keyrings/nodesource.gpg
