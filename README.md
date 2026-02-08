@@ -13,4 +13,4 @@ x86_64/aarch64/riscv64; Debian 13(with tun/tap kernel module); 1 Core; 1GB RAM; 
 3. Password to NextCloud admin is in ~/.secrets
   
   
-© 2026 Quasin • License MIT
+© 2026 Quasin • License Apache-2.0
