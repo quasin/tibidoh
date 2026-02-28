@@ -28,13 +28,13 @@ pip3 --version
 
 arch=$(uname -m)
 if [[ "$arch" == "x86_64" ]]; then
-    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.39.0/kubo_v0.39.0_linux-amd64.tar.gz"
+    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.40.1/kubo_v0.40.1_linux-amd64.tar.gz"
     yggdistr="https://github.com/yggdrasil-network/yggdrasil-go/releases/download/v0.5.12/yggdrasil-0.5.12-amd64.deb"
 elif [[ "$arch" == "aarch64" ]]; then
-    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.39.0/kubo_v0.39.0_linux-arm64.tar.gz"
+    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.40.1/kubo_v0.40.1_linux-arm64.tar.gz"
     yggdistr="https://github.com/yggdrasil-network/yggdrasil-go/releases/download/v0.5.12/yggdrasil-0.5.12-arm64.deb"
 elif [[ "$arch" == "riscv64" ]]; then
-    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.39.0/kubo_v0.39.0_linux-riscv64.tar.gz"
+    ipfsdistr="https://github.com/ipfs/kubo/releases/download/v0.40.1/kubo_v0.40.1_linux-riscv64.tar.gz"
     sudo wget -O /usr/local/bin/yggdrasil https://ipfs.sweb.ru/ipfs/QmZUem3W4YV8R4Zm8xEFfJoyWJskx4nDJ1rpDR6MSoVM3N?filename=yggdrasil
     sudo wget -O /usr/local/bin/yggdrasilctl https://ipfs.sweb.ru/ipfs/QmZUem3W4YV8R4Zm8xEFfJoyWJskx4nDJ1rpDR6MSoVM3N?filename=yggdrasilctl
     sudo chmod +x /usr/local/bin/yggdrasil /usr/local/bin/yggdrasilctl
